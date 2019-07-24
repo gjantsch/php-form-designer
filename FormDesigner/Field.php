@@ -84,30 +84,14 @@ class Field
      * @var array
      */
     private $options = [
-        'form' => ['label' => 'Form', 'cast' => 'boolean'],
-        'visible' => ['label' => 'Visible', 'cast' => 'boolean'],
-        'name' => ['label' => 'Label', 'cast' => 'string'],
-        'mask' => ['label' => 'Mask', 'cast' => 'string'],
-        'input' => ['label' => 'Input', 'cast' => 'string'],
-        'order' => ['label' => 'Order', 'cast' => 'integer'],
-        'label' => ['label' => 'Columns', 'cast' => 'string'],
+        'form' => ['label' => 'Form', 'cast' => 'boolean', 'value' => true],
+        'visible' => ['label' => 'Visible', 'cast' => 'boolean', 'value' => true],
+        'label' => ['label' => 'Label', 'cast' => 'string', 'value' => 'none'],
+        'mask' => ['label' => 'Mask', 'cast' => 'string', 'value' => null],
+        'input' => ['label' => 'Input', 'cast' => 'string', 'value' => 'text'],
+        'order' => ['label' => 'Order', 'cast' => 'integer', 'value' => null],
+        'columns' => ['label' => 'Columns', 'cast' => 'string', 'value' => 6],
     ];
-
-    /**
-     * Options values.
-     * @var array
-     */
-    private $values = [
-        'form' => true,
-        'visible' => true,
-        'label' => 'Label',
-        'mask' => null,
-        'input' => 'text',
-        'order' => null,
-        'columns' => 6
-    ];
-
-
 
     /**
      * Field constructor.
@@ -135,9 +119,11 @@ class Field
 
     public function loadOptions($options)
     {
-        foreach ($options as $key => $value) {
-            if (isset($this->values[$key])) {
-                $this->values[$key] = $this->cast($key, $value);
+        if (is_array($options)) {
+            foreach ($options as $key => $value) {
+                if (isset($this->options[$key])) {
+                    $this->options[$key]['value'] = $this->cast($key, $value);
+                }
             }
         }
     }
@@ -147,7 +133,7 @@ class Field
 
         switch ($this->options[$key]['cast']) {
             case 'boolean':
-                $value = (boolean)$value;
+                $value = $value=== 'false' ? false : (boolean)$value;
                 break;
 
             case 'integer':
@@ -187,20 +173,25 @@ class Field
         }
     }
 
+    public function getOptions($json=true)
+    {
+        return $json ? json_encode($this->options) : $this->options;
+    }
+
     function __isset($name)
     {
-        return isset($this->values[$name]);
+        return isset($this->options[$name]);
     }
 
     function __get($name)
     {
-        return $this->values[$name] ?? null;
+        return $this->options[$name]['value'] ?? null;
     }
 
     function __set($name, $value)
     {
-        if (isset($this->value[$name])) {
-            $this->values[$name] = $this->cast($name, $value);
+        if (isset($this->options[$name])) {
+            $this->options[$name]['value'] = $this->cast($name, $value);
         }
     }
 }

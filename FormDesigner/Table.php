@@ -45,7 +45,15 @@ class Table
 
     public function getFields()
     {
-        return $this->fields;
+
+        $fields = $this->fields;
+
+        usort($fields, function($a, $b) {
+
+            return strcmp($a->order, $b->order);
+
+        });
+        return $fields;
     }
 
 }

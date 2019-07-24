@@ -2,7 +2,7 @@
 /**
  * Created by PhpStorm.
  * @author Gustavo Jantsch <jantsch@gmail.com>
- *
+ * @var FormDesigner\Field $field
  */
 ?>
 <div class="col-<?=$field->columns?>">

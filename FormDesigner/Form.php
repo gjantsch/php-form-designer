@@ -52,13 +52,16 @@ class Form
     public static function renderField(Field $field)
     {
 
-        $view = __DIR__ . '/views/' . $field->input . '.php';
+        if ($field->form) {
 
-        if (!is_file($view)) {
-            $view = __DIR__ . '/views/text.php';
+            $view = __DIR__ . '/views/' . $field->input . '.php';
+
+            if (!is_file($view)) {
+                $view = __DIR__ . '/views/text.php';
+            }
+
+            include $view;
         }
-
-        include $view;
 
     }
 }

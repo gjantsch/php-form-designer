@@ -58,6 +58,14 @@ class DB
         return self::getInstance()->query($sql);
     }
 
+    public static function getTableCreate($table)
+    {
+        $sql = "SHOW CREATE TABLE " . $table;
+        $result = self::getInstance()->query($sql);
+        return $result->fetchAll(\PDO::FETCH_ASSOC)[0]['Create Table'];
+
+    }
+
     public static function getStructure($table_name)
     {
 
@@ -67,6 +75,22 @@ class DB
         $result = self::query($sql);
 
         return $result->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+    public static function getTables()
+    {
+        $tables = [];
+        $sql = "SHOW TABLES";
+        $result = self::query($sql);
+        $records = $result->fetchAll(\PDO::FETCH_ASSOC);
+        foreach ($records as $table) {
+            $tables[$table['Tables_in_exemplo']] = $table['Tables_in_exemplo'];
+        }
+
+        asort($tables);
+
+        return $tables;
 
     }
 }
