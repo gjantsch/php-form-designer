@@ -86,11 +86,27 @@ class Field
     private $options = [
         'form' => ['label' => 'Form', 'cast' => 'boolean', 'value' => true],
         'visible' => ['label' => 'Visible', 'cast' => 'boolean', 'value' => true],
-        'label' => ['label' => 'Label', 'cast' => 'string', 'value' => 'none'],
+        'required' => ['label' => 'Required', 'cast' => 'boolean', 'value' => true],
+        'readonly' => ['label' => 'Readonly', 'cast' => 'boolean', 'value' => true],
+        'label' => ['label' => 'Label', 'cast' => 'string', 'value' => ''],
+        'placeholder' => ['label' => 'Placeholder', 'cast' => 'string', 'value' => ''],
         'mask' => ['label' => 'Mask', 'cast' => 'string', 'value' => null],
         'input' => ['label' => 'Input', 'cast' => 'string', 'value' => 'text'],
         'order' => ['label' => 'Order', 'cast' => 'integer', 'value' => null],
         'columns' => ['label' => 'Columns', 'cast' => 'string', 'value' => 6],
+    ];
+
+    private static $optionsKeys = [
+        'form',
+        'visible',
+        'required',
+        'readonly',
+        'label',
+        'placeholder',
+        'mask',
+        'input',
+        'order',
+        'columns'
     ];
 
     /**
@@ -176,6 +192,11 @@ class Field
     public function getOptions($json=true)
     {
         return $json ? json_encode($this->options) : $this->options;
+    }
+
+    public static function getOptionsKeys()
+    {
+        return self::$optionsKeys;
     }
 
     function __isset($name)

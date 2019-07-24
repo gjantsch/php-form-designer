@@ -77,7 +77,7 @@ $table = $table_name ? new Table($table_name) : null;
             <?php if ($table): ?>
             <ul class="list-group mb-3 sortable" id="columns">
                 <?php foreach ($table->getFields() as $field): ?>
-                <li class="list-group-item d-flex justify-content-between lh-condensed" data-name="<?=$field->name?>">
+                <li class="list-group-item d-flex justify-content-between lh-condensed p-2" data-name="<?=$field->name?>">
                     <div>
                         <small class="text-muted"><strong><?=$field->name?></strong> - <span id="label-<?=$field->name?>"><?=$field->label?></span></small>
                         <input type="hidden" name="<?=$field->name?>" value="<?=$field->getOptions()?>">
@@ -91,32 +91,50 @@ $table = $table_name ? new Table($table_name) : null;
             </ul>
             <?php endif;?>
 
-            <ul class="list-group mb-3">
+            <ul class="list-group mb-3 small" id="f-properties-form">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <strong>Properties</strong><span id="property-name"></span>
+                </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <form>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="f-form">
-                            <label class="custom-control-label" for="f-form">Form</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input f-prop" id="f-form">
+                            <label class="form-check-label" for="f-form">Form</label>
                         </div>
 
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="f-visible">
-                            <label class="custom-control-label" for="f-visible">Visible</label>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input f-prop" id="f-visible">
+                            <label class="form-check-label" for="f-visible">Visible</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input f-prop" id="f-required">
+                            <label class="form-check-label" for="f-required">Required</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input f-prop" id="f-readonly">
+                            <label class="form-check-label" for="f-readonly">Readonly</label>
                         </div>
 
                         <div>
                             <label for="label">Label</label>
-                            <input type="text" class="form-control" id="f-label" value="">
+                            <input type="text" class="form-control form-control-sm input-sm f-prop" id="f-label" value="">
+                        </div>
+
+                        <div>
+                            <label for="f-mask">Placeholder</label>
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-placeholder" value="">
                         </div>
 
                         <div>
                             <label for="label">Mask</label>
-                            <input type="text" class="form-control" id="f-mask" value="">
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-mask" value="">
                         </div>
 
                         <div>
                             <label for="label">Input</label>
-                            <select id="f-input" class="form-control">
+                            <select id="f-input" class="form-control form-control-sm f-prop">
                                 <option value="text">text</option>
                                 <option value="textarea">textarea</option>
                                 <option value="password">password</option>
@@ -129,16 +147,16 @@ $table = $table_name ? new Table($table_name) : null;
 
                         <div>
                             <label for="label">Order</label>
-                            <input type="text" class="form-control" id="f-order" value="">
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-order" value="">
                         </div>
 
                         <div>
                             <label for="label">Columns</label>
-                            <input type="text" class="form-control" id="f-columns" value="">
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-columns" value="">
                         </div>
 
                         <div class="m-5">
-                            <button class="btn btn-primary form-control" id="save">Save & Refresh</button>
+                            <button class="btn btn-primary form-control form-control-sm" id="save">Save & Refresh</button>
                         </div>
                     </form>
                 </li>

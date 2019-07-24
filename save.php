@@ -6,6 +6,7 @@
  */
 
 use FormDesigner\DB;
+use FormDesigner\Field;
 use FormDesigner\Form;
 use FormDesigner\Table;
 
@@ -21,6 +22,7 @@ header("Content-type: text/plain");
 $items = $_REQUEST['items'];
 $table = $_REQUEST['table'];
 
+// Get the create table
 $create = explode("\n", DB::getTableCreate($table));
 $alter = [];
 foreach ($create as $line) {
@@ -31,15 +33,10 @@ foreach ($create as $line) {
 
         if (true || isset($items[$field_name])) {
 
-            $json = [
-                "form" => $items[$field_name]['form']['value'],
-                "visible" => $items[$field_name]['visible']['value'],
-                "label" => $items[$field_name]['label']['value'],
-                "mask" => $items[$field_name]['mask']['value'],
-                "input" => $items[$field_name]['input']['value'],
-                "order" => $items[$field_name]['order']['value'],
-                "columns" => $items[$field_name]['columns']['value'],
-            ];
+            $json = [];
+            foreach (Field::getOptionsKeys() as $key) {
+                $json[$key] = $items[$field_name][$key]['value'];
+            }
 
             if (strpos($line, "COMMENT")) {
                 $line = substr($line, 0, strpos($line, "COMMENT"));

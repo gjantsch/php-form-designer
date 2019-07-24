@@ -5,8 +5,5 @@
  * @var FormDesigner\Field $field
  */
 ?>
-<div class="col-<?=$field->columns?>">
-    <label for="<?=$field->name?>"><?=$field->label?></label>
-    <textarea class="form-control" id="<?=$field->name?>" <?=$field->required ? 'required' : '' ?>><?=$field->value?></textarea>
-</div>
+<input type="hidden" id="<?=$field->name?>" value="<?=$field->value?>">
 
