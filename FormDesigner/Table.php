@@ -21,7 +21,10 @@ class Table
      */
     public $fields = [];
 
-    private $strucutre;
+    /**
+     * @var array
+     */
+    private $structure;
 
     public function __construct($table_name)
     {
@@ -30,12 +33,15 @@ class Table
         $this->loadStructure();
     }
 
+    /**
+     * Load table structure.
+     */
     public function loadStructure()
     {
 
-        $this->strucutre = $this->strucutre ?? DB::getStructure($this->tableName);
+        $this->structure = $this->structure ?? DB::getStructure($this->tableName);
 
-        foreach ($this->strucutre as $key => $column) {
+        foreach ($this->structure as $key => $column) {
 
             $this->fields[] = new Field($column);
 
@@ -43,6 +49,10 @@ class Table
 
     }
 
+    /**
+     * Get fields sorted.
+     * @return array
+     */
     public function getFields()
     {
 
@@ -53,7 +63,7 @@ class Table
             return ($a->order < $b->order ? -1 : ($a->order > $b->order ? 1 : 0));
 
         });
-;
+
         return $fields;
     }
 
