@@ -14,7 +14,7 @@ require_once 'FormDesigner/Table.php';
 require_once 'FormDesigner/Field.php';
 require_once 'FormDesigner/Form.php';
 
-DB::initialize('exemplo', 'localhost', 'remote', '123');
+require_once 'config.php';
 
 $table_name = $_REQUEST['table'] ?? null;
 
