@@ -91,6 +91,7 @@ class Field
         'label' => ['label' => 'Label', 'cast' => 'string', 'value' => ''],
         'placeholder' => ['label' => 'Placeholder', 'cast' => 'string', 'value' => ''],
         'mask' => ['label' => 'Mask', 'cast' => 'string', 'value' => null],
+        'maxlen' => ['label' => 'Show Max Length', 'cast' => 'boolean', 'value' => false],
         'input' => ['label' => 'Input', 'cast' => 'string', 'value' => 'text'],
         'order' => ['label' => 'Order', 'cast' => 'integer', 'value' => null],
         'columns' => ['label' => 'Columns', 'cast' => 'string', 'value' => 6],
@@ -104,6 +105,7 @@ class Field
         'label',
         'placeholder',
         'mask',
+        'maxlen',
         'input',
         'order',
         'columns'
@@ -136,11 +138,17 @@ class Field
     public function loadOptions($options)
     {
         if (is_array($options)) {
-            foreach ($options as $key => $value) {
-                if (isset($this->options[$key])) {
-                    $this->options[$key]['value'] = $this->cast($key, $value);
+
+            foreach ($this->options as $key => $value) {
+                if (isset($options[$key])) {
+                    $this->options[$key]['value'] = $this->cast($key, $options[$key]);
+                } else {
+                    if ($this->options[$key]['cast'] == 'boolean') {
+                        $this->options[$key]['value'] = false;
+                    }
                 }
             }
+
         }
     }
 

@@ -50,9 +50,10 @@ class Table
 
         usort($fields, function($a, $b) {
 
-            return strcmp($a->order, $b->order);
+            return ($a->order < $b->order ? -1 : ($a->order > $b->order ? 1 : 0));
 
         });
+;
         return $fields;
     }
 

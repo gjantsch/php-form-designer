@@ -113,6 +113,11 @@ $table = $table_name ? new Table($table_name) : null;
                         </div>
 
                         <div class="form-check">
+                            <input type="checkbox" class="form-check-input f-prop" id="f-maxlen">
+                            <label class="form-check-label" for="f-maxlen">Show Max Length</label>
+                        </div>
+
+                        <div class="form-check">
                             <input type="checkbox" class="form-check-input f-prop" id="f-readonly">
                             <label class="form-check-label" for="f-readonly">Readonly</label>
                         </div>
@@ -193,6 +198,9 @@ $table = $table_name ? new Table($table_name) : null;
 <script src="assets/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
 <script src="assets/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="FormDesigner/js/jquery-ensure-max-length.js"></script>
+<script src="FormDesigner/js/jquery.mask.min.js"></script>
 <script src="FormDesigner/js/form-designer.js"></script>
+<script src="FormDesigner/js/forms.js"></script>
 </html>
 

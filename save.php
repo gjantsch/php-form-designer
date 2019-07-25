@@ -17,7 +17,6 @@ require_once 'FormDesigner/Form.php';
 
 DB::initialize('exemplo', 'localhost', 'remote', '123');
 
-
 header("Content-type: text/plain");
 $items = $_REQUEST['items'];
 $table = $_REQUEST['table'];
@@ -35,7 +34,9 @@ foreach ($create as $line) {
 
             $json = [];
             foreach (Field::getOptionsKeys() as $key) {
-                $json[$key] = $items[$field_name][$key]['value'];
+                if (!empty($items[$field_name][$key]['value'])) {
+                    $json[$key] = $items[$field_name][$key]['value'];
+                }
             }
 
             if (strpos($line, "COMMENT")) {
@@ -44,7 +45,7 @@ foreach ($create as $line) {
                 $line = trim($line, ',');
             }
 
-            $line = $line . "COMMENT '" . json_encode($json). "'";
+            $line = $line . "COMMENT '" . addslashes(json_encode($json)). "'";
 
             $alter[] = "ALTER TABLE $table MODIFY COLUMN $line";
         }
