@@ -19,7 +19,12 @@ require_once 'config.php';
 $table_name = $_REQUEST['table'] ?? null;
 
 $tables = DB::getTables();
-$table = $table_name ? new Table($table_name) : null;
+$table = $table_name && isset($tables[$table_name]) ? new Table($table_name) : null;
+
+$field_types = array_diff(scandir(__DIR__ . '/FormDesigner/views'), array('..', '.'));
+array_walk($field_types, function (&$item, $key) {
+    $item = str_replace('.php', '', $item);
+});
 
 ?>
 <!doctype html>
@@ -32,6 +37,8 @@ $table = $table_name ? new Table($table_name) : null;
 
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+    <link href="assets/fontawesome-free-5.9-2.0-web/css/all.min.css" rel="stylesheet">
+    <link href="assets/daterangepicker-master/daterangepicker.css" rel="stylesheet">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -133,6 +140,11 @@ $table = $table_name ? new Table($table_name) : null;
                         </div>
 
                         <div>
+                            <label for="f-bottom">Bottom line</label>
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-bottom" value="">
+                        </div>
+
+                        <div>
                             <label for="label">Mask</label>
                             <input type="text" class="form-control form-control-sm f-prop" id="f-mask" value="">
                         </div>
@@ -140,13 +152,9 @@ $table = $table_name ? new Table($table_name) : null;
                         <div>
                             <label for="label">Input</label>
                             <select id="f-input" class="form-control form-control-sm f-prop">
-                                <option value="text">text</option>
-                                <option value="textarea">textarea</option>
-                                <option value="password">password</option>
-                                <option value="hidden">hidden</option>
-                                <option value="checkbox">checkbox</option>
-                                <option value="radio">radio</option>
-                                <option value="email">email</option>
+                                <?php foreach ($field_types as $field_type): ?>
+                                    <option value="<?=$field_type?>"<?=$field_type=='text' ? ' selected' : ''?>><?=$field_type?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
@@ -198,6 +206,10 @@ $table = $table_name ? new Table($table_name) : null;
 <script src="assets/jquery-ui-1.12.1/external/jquery/jquery.js"></script>
 <script src="assets/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/moment.js"></script>
+<script src="assets/moment-with-locales.js"></script>
+<script src="assets/daterangepicker-master/daterangepicker.js"></script>
+<script src="assets/fontawesome-free-5.9-2.0-web/js/all.min.js"></script>
 <script src="FormDesigner/js/jquery-ensure-max-length.js"></script>
 <script src="FormDesigner/js/jquery.mask.min.js"></script>
 <script src="FormDesigner/js/form-designer.js"></script>

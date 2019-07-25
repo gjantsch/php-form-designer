@@ -78,7 +78,7 @@ class DB
 
     }
 
-    public static function setStructure($table_name, $json)
+    public static function setStructure($table_name, $items)
     {
         // Get the create table
         $create = explode("\n", DB::getTableCreate($table_name));
@@ -89,12 +89,12 @@ class DB
             if (substr($line, 0, 1) == '`') {
                 $field_name = trim(substr($line, 0, strpos($line, ' ')), '`');
 
-                if (true || isset($json[$field_name])) {
+                if (true || isset($items[$field_name])) {
 
                     $json = [];
                     foreach (Field::getOptionsKeys() as $key) {
-                        if (!empty($json[$field_name][$key]['value'])) {
-                            $json[$key] = $json[$field_name][$key]['value'];
+                        if (!empty($items[$field_name][$key]['value'])) {
+                            $json[$key] = $items[$field_name][$key]['value'];
                         }
                     }
 
@@ -104,7 +104,7 @@ class DB
                         $line = trim($line, ',');
                     }
 
-                    $line = $line . "COMMENT '" . addslashes(json_encode($json)). "'";
+                    $line = $line . " COMMENT '" . addslashes(json_encode($json)). "'";
 
                     $alter[] = "ALTER TABLE $table_name MODIFY COLUMN $line";
                 }

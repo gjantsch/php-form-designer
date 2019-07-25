@@ -29,6 +29,11 @@ if (!empty($field->placeholder)) {
 if ($field->maxlen) {
     $class[] = 'ensure-max-length';
 }
+
+if (!$field->visible) {
+    $class[] = 'hide';
+}
+
 if (!empty($field->mask)) {
     $options[] = 'data-mask="' . $field->mask . '"';
     $class[] = 'mask';
@@ -37,4 +42,7 @@ if (!empty($field->mask)) {
 <div class="col-<?=$field->columns?>">
     <label for="<?=$field->name?>"><?=$field->label?></label>
     <input type="text" class="<?=implode(' ', $class)?>" <?=implode(' ', $options)?>>
+    <?php if (!empty($field->bottom)): ?>
+        <small class="text-muted"><?=$field->bottom?></small>
+    <?php endif; ?>
 </div>

@@ -22,7 +22,8 @@ class Form
         $options = [
             "name=\"$name\"",
             "method=\"$method\"",
-            "action=\"action\""
+            "action=\"action\"",
+            "class=\"needs-validation\""
         ];
 
         if ($multipart) {

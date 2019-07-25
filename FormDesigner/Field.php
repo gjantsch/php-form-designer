@@ -80,6 +80,16 @@ class Field
     public $decimals;
 
     /**
+     * @var array
+     */
+    public $enum;
+
+    /**
+     * @var mixed
+     */
+    public $value;
+
+    /**
      * Options and his casts.
      * @var array
      */
@@ -89,6 +99,7 @@ class Field
         'required' => ['label' => 'Required', 'cast' => 'boolean', 'value' => true],
         'readonly' => ['label' => 'Readonly', 'cast' => 'boolean', 'value' => true],
         'label' => ['label' => 'Label', 'cast' => 'string', 'value' => ''],
+        'bottom' => ['label' => 'Bottom line', 'cast' => 'string', 'value' => ''],
         'placeholder' => ['label' => 'Placeholder', 'cast' => 'string', 'value' => ''],
         'mask' => ['label' => 'Mask', 'cast' => 'string', 'value' => null],
         'maxlen' => ['label' => 'Show Max Length', 'cast' => 'boolean', 'value' => false],
@@ -104,6 +115,7 @@ class Field
         'readonly',
         'label',
         'placeholder',
+        'bottom',
         'mask',
         'maxlen',
         'input',
@@ -132,6 +144,12 @@ class Field
         $this->setType($column_definition['Type']);
 
         $this->loadOptions($options);
+
+        if ($this->default == 'NULL') {
+            $this->value = null;
+        } else {
+            $this->value = $this->default;
+        }
 
     }
 
@@ -191,6 +209,11 @@ class Field
                 $value = explode(',', $value);
                 $this->maxlength = (int)$value[0];
                 $this->decimals = (int)$value[1];
+            } elseif ($this->type == 'enum') {
+                $this->enum = explode(',', $value);
+                array_walk($this->enum, function(&$value, $key) {
+                    $value = trim($value, "'");
+                });
             } else {
                 $this->maxlength = (int)$value;
             }

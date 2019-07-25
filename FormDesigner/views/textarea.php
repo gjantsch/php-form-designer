@@ -5,7 +5,10 @@
  * @var FormDesigner\Field $field
  */
 ?>
-<div class="col-<?=$field->columns?>">
+<div class="col-<?=$field->columns?><?=$field->visible ? '' : ' hide'?>">
     <label for="<?=$field->name?>"><?=$field->label?></label>
     <textarea class="form-control<?=$field->maxlen ? ' ensure-max-length' : ''?>" id="<?=$field->name?>"><?=$field->value?></textarea>
+    <?php if (!empty($field->bottom)): ?>
+        <small class="text-muted"><?=$field->bottom?></small>
+    <?php endif; ?>
 </div>
