@@ -85,7 +85,7 @@ class DB
         $result = self::query($sql);
         $records = $result->fetchAll(\PDO::FETCH_ASSOC);
         foreach ($records as $table) {
-            $tables[$table['Tables_in_exemplo']] = $table['Tables_in_exemplo'];
+            $tables[$table['Tables_in_' . self::$databaseName]] = $table['Tables_in_' . self::$databaseName];
         }
 
         asort($tables);

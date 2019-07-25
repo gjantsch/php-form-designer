@@ -17,5 +17,5 @@ $('.maks').each(function(i, e){
 
     var mask = $(e).data('mask');
     $(e).mask(mask);
-    
+
 });
