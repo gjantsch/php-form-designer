@@ -7,7 +7,7 @@
 ?>
 <div class="col-<?=$field->columns?><?=$field->visible ? '' : ' hide'?>">
     <label for="<?=$field->name?>"><?=$field->label?></label>
-    <select class="form-control" id="<?=$field->name?>" <?=$field->required ? 'required' : '' ?>>
+    <select class="form-control custom-select" id="<?=$field->name?>" <?=$field->required ? 'required' : '' ?>>
         <?php foreach ($field->enum as $value): ?>
             <option value="<?=$value?>"><?=$value?></option>
         <?php endforeach; ?>

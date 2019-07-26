@@ -50,7 +50,7 @@ class Form
         }
     }
 
-    public static function renderField(Field $field)
+    public static function renderField(Field $field, $options = null)
     {
 
         if ($field->form) {

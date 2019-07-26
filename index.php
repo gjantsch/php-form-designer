@@ -6,12 +6,12 @@
  */
 
 use FormDesigner\DB;
-use FormDesigner\Form;
 use FormDesigner\Table;
 
 require_once 'FormDesigner/DB.php';
 require_once 'FormDesigner/Table.php';
 require_once 'FormDesigner/Field.php';
+require_once 'FormDesigner/FieldExtras.php';
 require_once 'FormDesigner/Form.php';
 
 require_once 'config.php';
@@ -103,7 +103,7 @@ array_walk($field_types, function (&$item, $key) {
                     <strong>Properties</strong><span id="property-name"></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <form>
+                    <div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input f-prop" id="f-form">
                             <label class="form-check-label" for="f-form">Form</label>
@@ -164,6 +164,53 @@ array_walk($field_types, function (&$item, $key) {
                         </div>
 
                         <div>
+                            <label for="label">Input Extra</label>
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-inputx" value="">
+                            <div id="select-helper" class="bg-secondary p-3 d-none">
+                                <div>
+                                    <label for="label">From (foreign|tablename)</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="from" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Foreign Key</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="fk" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Primary Key</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="pk" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Value (fieldname)</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="key" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Option (fieldname)</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="value" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Order by (fieldname)</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="order" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Option label when empty</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="empty" value="">
+                                </div>
+
+                                <div>
+                                    <label for="label">Update</label>
+                                    <input type="text" class="form-control form-control-sm h-prop" data-name="update" value="">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div>
                             <label for="label">Order</label>
                             <input type="text" class="form-control form-control-sm f-prop" id="f-order" value="">
                         </div>
@@ -176,25 +223,13 @@ array_walk($field_types, function (&$item, $key) {
                         <div class="m-5">
                             <button class="btn btn-primary form-control form-control-sm" id="save">Save & Refresh</button>
                         </div>
-                    </form>
+                    </div>
                 </li>
             </ul>
         </div>
         <div class="col-8">
             <div class="row">
-                <?php Form::Open(); ?>
-                <div class="col-12">
-
-                    <h4 class="mb-3"><?=$table_name?></h4>
-                    <div class="row">
-                    <?php echo $table ? Form::renderTable($table) : null; ?>
-                    </div>
-
-                    <hr class="mb-4">
-                    <button class="btn btn-primary btn-block col-6 " type="submit">Salvar</button>
-                    <button class="btn btn-secondary btn-block col-6" type="submit">Cancelar</button>
-                </div>
-                <?php Form::Close(); ?>
+                <?php include 'form.php'; ?>
             </div>
         </div>
     </div>

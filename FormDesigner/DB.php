@@ -58,6 +58,26 @@ class DB
         return self::getInstance()->query($sql);
     }
 
+    public static function getAll($sql, $data = null)
+    {
+        $return = null;
+
+        if (is_array($data)) {
+
+            $statement = self::getInstance()->prepare($sql);
+            $statement->execute($data);
+            $return = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        } else {
+
+            $statement = self::getInstance()->query($sql);
+            $return = $statement->fetchAll(\PDO::FETCH_ASSOC);
+
+        }
+
+        return $return;
+    }
+
     public static function getTableCreate($table)
     {
         $sql = "SHOW CREATE TABLE " . $table;
@@ -66,7 +86,7 @@ class DB
 
     }
 
-    public static function getStructure($table_name)
+    public static function getTableColumns($table_name)
     {
 
         $table_name = stripcslashes($table_name);

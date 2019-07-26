@@ -107,6 +107,7 @@ class Field
         'order' => ['label' => 'Order', 'cast' => 'integer', 'value' => null],
         'columns' => ['label' => 'Columns', 'cast' => 'string', 'value' => 6],
         'feedback' => ['label' => 'Invalid feedback', 'cast' => 'string', 'value' => ''],
+        'inputx' => ['label' => 'Input Extras', 'cast' => 'string', 'value' => ''],
     ];
 
     private static $optionsKeys = [
@@ -122,15 +123,22 @@ class Field
         'input',
         'order',
         'columns',
-        'feedback'
+        'feedback',
+        'inputx'
     ];
+
+    private $parentTable = null;
 
     /**
      * Field constructor.
      * @param $column_definition
      */
-    public function __construct($column_definition)
+    public function __construct($column_definition, $table = null)
     {
+
+        if (!empty($table) && $table instanceof Table) {
+            $this->parentTable = $table;
+        }
 
         $options = json_decode($column_definition["Comment"], true);
 
@@ -153,6 +161,14 @@ class Field
             $this->value = $this->default;
         }
 
+    }
+
+    /**
+     * @return Table|null
+     */
+    public function getTable()
+    {
+        return $this->parentTable;
     }
 
     public function loadOptions($options)
@@ -230,6 +246,12 @@ class Field
     public static function getOptionsKeys()
     {
         return self::$optionsKeys;
+    }
+
+    public function getExtra() {
+
+        return new FieldExtras($this->inputx);
+
     }
 
     function __isset($name)

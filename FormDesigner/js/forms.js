@@ -40,6 +40,33 @@ $(function() {
         maxYear: parseInt(moment().format('YYYY'),10)
     });
 
+    $(':not([data-update=""])').change(function(e, ui){
+
+        if (!$(this).is('select')) {
+            return;
+        }
+
+        var filter = {};
+        filter[$(this).attr('id')] = $(this).val();
+
+        $.ajax({
+            url: "update.php",
+            method: "get",
+            data: {
+                table: $(this).data('table'),
+                field: $(this).data('update'),
+                filter: filter
+            },
+            success: function(data) {
+
+                $('#' + data.field_id).html(data.content);
+
+            }
+        });
+
+
+    });
+
 
 });
 
