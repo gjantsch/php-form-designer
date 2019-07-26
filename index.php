@@ -145,6 +145,11 @@ array_walk($field_types, function (&$item, $key) {
                         </div>
 
                         <div>
+                            <label for="f-feedback">Feedback if invalid</label>
+                            <input type="text" class="form-control form-control-sm f-prop" id="f-feedback" value="">
+                        </div>
+
+                        <div>
                             <label for="label">Mask</label>
                             <input type="text" class="form-control form-control-sm f-prop" id="f-mask" value="">
                         </div>

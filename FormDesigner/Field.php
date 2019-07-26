@@ -106,6 +106,7 @@ class Field
         'input' => ['label' => 'Input', 'cast' => 'string', 'value' => 'text'],
         'order' => ['label' => 'Order', 'cast' => 'integer', 'value' => null],
         'columns' => ['label' => 'Columns', 'cast' => 'string', 'value' => 6],
+        'feedback' => ['label' => 'Invalid feedback', 'cast' => 'string', 'value' => ''],
     ];
 
     private static $optionsKeys = [
@@ -120,7 +121,8 @@ class Field
         'maxlen',
         'input',
         'order',
-        'columns'
+        'columns',
+        'feedback'
     ];
 
     /**

@@ -30,7 +30,7 @@ class Form
             $options[] = 'enctype="multipart/form-data"';
         }
 
-        echo "<form " . implode(' ', $options);
+        echo "<form " . implode(' ', $options) . " novalidate>";
     }
 
     public static function Close()

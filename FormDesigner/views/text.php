@@ -45,4 +45,5 @@ if (!empty($field->mask)) {
     <?php if (!empty($field->bottom)): ?>
         <small class="text-muted"><?=$field->bottom?></small>
     <?php endif; ?>
+    <div class="invalid-feedback"><?=$field->feedback?></div>
 </div>
